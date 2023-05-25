@@ -1,7 +1,8 @@
 {
-	"name": "dockerized-fullstack-template",
+	"name": "duck-chat",
+	"private": true,
 	"version": "0.0.0",
-	"description": "Template for dockerized fullstack projects with Docker Compose.",
+	"description": "Chatting application with duck themed messages.",
 	"scripts": {
 		"precommit": "lint-staged",
 		"prepare": "husky install"
