@@ -1,6 +1,6 @@
 import * as dotenv from 'dotenv';
 import express from 'express';
-import { errorHandlerMiddleware } from './api/middleware/errorHandlerMiddleware';
+import { errorHandlerMiddleware } from './middlewares/errorHandlerMiddleware';
 
 dotenv.config();
 

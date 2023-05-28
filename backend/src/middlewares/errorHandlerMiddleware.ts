@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { ErrorRequestHandler as ErrReq } from 'express';
-import BadRequestError from '../errors/BadRequestError';
-import ForbiddenError from '../errors/ForbiddenError';
-import UnauthorizedError from '../errors/ForbiddenError';
-import NotFoundError from '../errors/NotFoundError';
+import BadRequestError from '../utils/errors/BadRequestError';
+import ForbiddenError from '../utils/errors/ForbiddenError';
+import UnauthorizedError from '../utils/errors/ForbiddenError';
+import NotFoundError from '../utils/errors/NotFoundError';
 
 export const errorHandlerMiddleware: ErrReq = (err, req, res, next) => {
   switch (true) {
