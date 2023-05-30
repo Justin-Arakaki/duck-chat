@@ -6,7 +6,9 @@
   "main": "src/index.ts",
   "scripts": {
     "start": "ts-node src/index.ts",
-    "dev": "nodemon -L",
+    "dev": "npm-run-all --silent --serial dev:dbstart dev:start",
+    "dev:start": "nodemon -L",
+    "dev:dbstart": "sudo service mysql start",
     "test": "jest --watch",
     "faker": "ts-node src/scripts/seedSampleData.ts"
   },

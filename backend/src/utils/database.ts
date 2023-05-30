@@ -1,16 +1,24 @@
 /* eslint-disable no-console */
+import * as dotenv from 'dotenv';
 import { Sequelize } from 'sequelize';
 
-const sequelize = new Sequelize('database_name', 'username', 'password', {
-  host: 'localhost',
-  dialect: 'mysql',
-});
+dotenv.config();
 
-try {
-  await sequelize.authenticate();
-  console.log('Connection to the database has been established successfully.');
-} catch (error) {
-  console.error('Unable to connect to the database:', error);
+export const sequelize = new Sequelize(
+  process.env.DB_NAME ?? 'quackchat',
+  process.env.DB_USER ?? 'root',
+  process.env.DB_PASSWORD ?? 'root',
+  {
+    host: process.env.DB_HOST,
+    dialect: 'mysql',
+  }
+);
+
+export default async function connectToDb() {
+  try {
+    await sequelize.authenticate();
+    console.log(`Connection to ${process.env.DB_NAME} established.`);
+  } catch (error) {
+    console.error('Unable to connect to the database:', error);
+  }
 }
-
-export default sequelize;
