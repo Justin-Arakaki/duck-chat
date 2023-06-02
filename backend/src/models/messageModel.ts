@@ -1,12 +1,18 @@
 import { DataTypes, Model } from 'sequelize';
 import { sequelize } from '../utils/database';
+import { Models } from './models';
 
-class Message extends Model {
+export default class Message extends Model {
   declare id: number;
   declare roomId: number;
   declare userId: number;
   declare message: string;
   declare readonly createdAt: Date;
+
+  static associate(models: Models) {
+    Message.belongsTo(models.Room, { foreignKey: 'room_id' });
+    Message.belongsTo(models.User, { foreignKey: 'user_id' });
+  }
 }
 
 Message.init(
@@ -37,7 +43,6 @@ Message.init(
   {
     sequelize,
     modelName: 'messages',
+    tableName: 'Messages',
   }
 );
-
-export default Message;

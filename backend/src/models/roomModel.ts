@@ -1,11 +1,21 @@
 import { DataTypes, Model } from 'sequelize';
 import { sequelize } from '../utils/database';
+import { Models } from './models';
 
-class Room extends Model {
+export default class Room extends Model {
   declare id: number;
   declare name: string;
   declare createdBy: number;
   declare readonly createdAt: Date;
+
+  static associate(models: Models) {
+    Room.belongsTo(models.User, { foreignKey: 'created_by' });
+    Room.belongsToMany(models.User, {
+      through: models.RoomMember,
+      foreignKey: 'room_id',
+    });
+    Room.hasMany(models.Message, { foreignKey: 'room_id' });
+  }
 }
 
 Room.init(
@@ -29,8 +39,7 @@ Room.init(
   },
   {
     sequelize,
-    modelName: 'rooms',
+    modelName: 'Room',
+    tableName: 'rooms',
   }
 );
-
-export default Room;

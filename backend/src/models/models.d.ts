@@ -3,4 +3,9 @@ import RoomMember from './roomMemberModel';
 import Room from './roomModel';
 import User from './userModel';
 
-export type Models = User | Room | RoomMember | Message;
+export interface Models {
+  User: typeof User;
+  Room: typeof Room;
+  RoomMember: typeof RoomMember;
+  Message: typeof Message;
+}

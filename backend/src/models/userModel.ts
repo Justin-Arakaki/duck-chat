@@ -1,7 +1,8 @@
-import { DataTypes, Model } from 'sequelize';
+import { DataTypes, Model, Sequelize } from 'sequelize';
 import { sequelize } from '../utils/database';
+import { Models } from './models';
 
-class User extends Model {
+export default class User extends Model {
   declare id: number;
   declare name: string;
   declare hashedPassword: string;
@@ -11,6 +12,14 @@ class User extends Model {
   updateLastLogin() {
     this.lastLogin = new Date();
     return this.save();
+  }
+
+  static associate(models: Models) {
+    User.hasMany(models.Message, { foreignKey: 'user_id' });
+    User.belongsToMany(models.Room, {
+      through: models.RoomMember,
+      foreignKey: 'user_id',
+    });
   }
 }
 
@@ -23,25 +32,25 @@ User.init(
       field: 'user_id',
     },
     name: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(50),
       allowNull: false,
       unique: true,
       field: 'username',
     },
     hashedPassword: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(194),
       allowNull: false,
       field: 'hashed_password',
     },
     lastLogin: {
       type: DataTypes.DATE,
       field: 'last_login',
+      defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
     },
   },
   {
     sequelize,
-    modelName: 'users',
+    modelName: 'User',
+    tableName: 'users',
   }
 );
-
-export default User;

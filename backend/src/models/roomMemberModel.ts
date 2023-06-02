@@ -1,7 +1,7 @@
 import { DataTypes, Model } from 'sequelize';
 import { sequelize } from '../utils/database';
 
-class RoomMember extends Model {
+export default class RoomMember extends Model {
   declare id: number;
   declare roomId: number;
   declare userId: number;
@@ -28,8 +28,7 @@ RoomMember.init(
   },
   {
     sequelize,
-    modelName: 'room_members',
+    modelName: 'RoomMembers',
+    tableName: 'room_members',
   }
 );
-
-export default RoomMember;
