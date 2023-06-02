@@ -18,7 +18,10 @@ export default async function connectToDb() {
   try {
     await sequelize.authenticate();
     console.log(`Connection to ${process.env.DB_NAME} established.`);
-  } catch (error) {
-    console.error('Unable to connect to the database:', error);
+    await sequelize.sync();
+    console.log('Database synced.');
+  } catch (err) {
+    console.error('Unable to connect to the database:', err);
+    process.exit(1);
   }
 }
