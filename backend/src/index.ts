@@ -1,14 +1,16 @@
-import * as dotenv from 'dotenv';
+import './utils/setupDotenv';
 import express from 'express';
-import connectToDb from './utils/database';
 import { errorHandlerMiddleware } from './middlewares/errorHandlerMiddleware';
-
-dotenv.config();
+import connectToDb from './utils/database';
 
 connectToDb();
 
 const app = express();
 const port = process.env.PORT ? parseInt(process.env.PORT, 10) : 8080;
+
+app.use(express.json());
+
+// app.use('/api', routes);
 
 app.use(errorHandlerMiddleware); // Must be at end
 
