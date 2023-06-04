@@ -6,7 +6,7 @@ import {
   UnauthorizedError,
   ForbiddenError,
   NotFoundError,
-} from '../utils/CustomError';
+} from '../utils/errors';
 
 export const errorHandlerMiddleware: ErrReq = (
   err: CustomError,
@@ -28,6 +28,7 @@ export const errorHandlerMiddleware: ErrReq = (
       res.status(404).json({ error: `The ${err.resource} was not found` });
       break;
     default:
+      console.error(err);
       res.status(500).json({ error: 'Internal Server Error' });
       break;
   }

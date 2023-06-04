@@ -3,7 +3,7 @@ import {
   ForbiddenError,
   NotFoundError,
   UnauthorizedError,
-} from '../CustomError';
+} from '../errors';
 
 const errorClasses = [
   BadRequestError,
