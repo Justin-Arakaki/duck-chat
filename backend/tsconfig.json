@@ -10,10 +10,12 @@
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,
+    "typeRoots": ["./node_modules/@types", "./src/types"],
+    "types": ["node"],
     "rootDir": "./src",
     "baseUrl": "./src"
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "types/**/*.ts"],
   "exclude": ["node_modules"],
   "ts-node": {
     "esm": true,

@@ -5,18 +5,15 @@
   "semi": true,
   "printWidth": 80,
   "importOrder": [
-    "/controllers/",
-    "/models/",
-    "/routes/",
-    "/middleware/",
-    "/utils/",
-    "/services/",
-    "/constants/",
-    "/config/",
-    "\\/errors\\/",
-    "^./",
-    "^../",
-    ".scss$",
-    ".css$"
+    "setupDotenv",
+    "^[^.]",
+    "/controllers",
+    "/models",
+    "/routes",
+    "/middlewares",
+    "/utils",
+    "/services",
+    "/constants",
+    "/config"
   ]
 }

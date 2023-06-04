@@ -22,7 +22,7 @@ module.exports = {
     'prettier/prettier': 'warn',
     'no-shadow': 'off',
     '@typescript-eslint/no-shadow': ['error'],
-    '@typescript-eslint/no-unused-vars': ['error'],
+    '@typescript-eslint/no-unused-vars': ['warn'],
     'no-use-before-define': 'off',
     '@typescript-eslint/restrict-template-expressions': 'off',
     'no-await-in-loop': 'warn',
