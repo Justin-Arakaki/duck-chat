@@ -21,6 +21,7 @@ module.exports = {
   rules: {
     'prettier/prettier': 'warn',
     'no-shadow': 'off',
+    '@typescript-eslint/no-non-null-assertion': 'off',
     '@typescript-eslint/no-shadow': ['error'],
     '@typescript-eslint/no-unused-vars': ['warn'],
     'no-use-before-define': 'off',

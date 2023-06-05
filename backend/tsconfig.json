@@ -10,6 +10,7 @@
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,
+    "lib": ["es6"],
     "rootDir": "./src",
     "baseUrl": "./src"
   },
