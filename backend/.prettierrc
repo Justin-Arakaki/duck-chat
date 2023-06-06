@@ -6,7 +6,7 @@
   "printWidth": 80,
   "importOrder": [
     "setupDotenv",
-    "^[^.]",
+    "<THIRD_PARTY_MODULES>",
     "/types",
     "/controllers",
     "/models",
