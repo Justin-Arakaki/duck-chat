@@ -1,6 +1,6 @@
 import { DataTypes, Model } from 'sequelize';
-import { sequelize } from '../utils/database';
 import { Models } from './models';
+import { sequelize } from '../utils/database';
 
 export default class Room extends Model {
   declare id: number;

@@ -1,6 +1,6 @@
 import { DataTypes, Model, Sequelize } from 'sequelize';
-import { sequelize } from '../utils/database';
 import { Models } from './models';
+import { sequelize } from '../utils/database';
 
 export default class User extends Model {
   declare id: number;
