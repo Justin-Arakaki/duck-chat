@@ -7,7 +7,7 @@ CREATE TABLE users(
 );
 CREATE TABLE rooms(
   room_id INT PRIMARY KEY AUTO_INCREMENT,
-  room_name VARCHAR(50) NOT NULL UNIQUE,
+  room_name VARCHAR(50) NOT NULL,
   created_by INT,
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (created_by) REFERENCES users(user_id)
