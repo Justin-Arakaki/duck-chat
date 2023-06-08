@@ -11,7 +11,7 @@ read -p "This script will delete and recreate database $db_name. Are you sure yo
 choice=$(echo "$choice" | tr '[:upper:]' '[:lower:]')
 
 if [ "$choice" = "y" ]; then
-  echo "Starting process on database $db_name..."
+  echo -e "\n Starting mysql..."
 
   # Sql scripts
   sqlDestroyDb="DROP SCHEMA IF EXISTS $db_name;"
@@ -21,16 +21,35 @@ if [ "$choice" = "y" ]; then
   sudo service mysql start
 
   # Destroy db
-  echo "Destroying Database (if exists): $db_name"
+  echo -e "\nDestroying Database (if exists): [$db_name]"
   mysql --defaults-extra-file=../mysql.cnf -e "$sqlDestroyDb"
+  if [ $? -eq 0 ]; then
+    echo "Succeeded."
+  else
+    echo "Failed. Stopping."
+    exit 1
+  fi
 
   # Create db
-  echo "Creating Database: $db_name"
+  echo -e "\nCreating Database: [$db_name]"
   mysql --defaults-extra-file=../mysql.cnf -e "$sqlCreateDb"
-  mysql --defaults-extra-file=../mysql.cnf -D"$db_name" < init.sql
+  if [ $? -eq 1 ]; then
+    echo "Failed. Stopping."
+    exit 1
+  fi
+  mysql --defaults-extra-file=../mysql.cnf -D"$db_name" <init.sql
+  if [ $? -eq 0 ]; then
+    echo "Succeeded."
+  else
+    echo "Failed. Stopping."
+    exit 1
+  fi
 
   # Restart db
+  echo -e "\n Restarting mysql..."
   sudo service mysql restart
+
+  echo -e "\nSuccessfully reset database: [$db_name]!\n"
 else
-  echo "Canceled."
+  echo -e "\nCancelled.\n"
 fi
