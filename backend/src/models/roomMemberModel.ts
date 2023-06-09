@@ -15,7 +15,7 @@ RoomMember.init(
       primaryKey: true,
       field: 'room_member_id',
     },
-    room_id: {
+    roomId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       field: 'room_id',
@@ -30,5 +30,6 @@ RoomMember.init(
     sequelize,
     modelName: 'RoomMembers',
     tableName: 'room_members',
+    timestamps: false,
   }
 );

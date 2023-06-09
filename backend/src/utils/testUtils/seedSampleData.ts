@@ -1,12 +1,9 @@
 /* eslint-disable no-console */
 import { faker } from '@faker-js/faker';
-import * as dotenv from 'dotenv';
 import mysql from 'mysql2';
-import generateHash from '../utils/generateHash';
 import mysqlConnect from '../utils/mysqlConnect';
 import mysqlDisconnect from '../utils/mysqlDisconnect';
-
-dotenv.config();
+import hashPassword from '../utils/passwordUtils';
 
 const connection = mysql.createConnection({
   host: process.env.DB_HOST,
@@ -28,7 +25,7 @@ function insertFaker(numEntries: number) {
   return new Promise<void>((resolve) => {
     const fakey = {
       name: faker.internet.userName(),
-      password: generateHash(faker.internet.password()),
+      password: hashPassword(faker.internet.password()),
     };
 
     for (let i = 0; i < numEntries; i++) {

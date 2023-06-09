@@ -5,11 +5,6 @@ import { models } from '../models';
 import { UnauthorizedError, NotFoundError } from '../utils/errors';
 import getEnv from '../utils/getEnv';
 
-// TODO: Token management - token expiration, revocation, blacklisting
-// TODO: Error handling - database connection errors
-// TODO: Rate limiting
-// TODO: Logging
-
 export default async function authMiddleware(
   req: AuthRequest,
   res: Response,

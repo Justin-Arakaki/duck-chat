@@ -37,5 +37,5 @@ module.exports = {
     ],
     complexity: ['error', 10],
   },
-  ignorePatterns: ['src/**/*.test.ts', '.eslintrc.cjs', '*.d.ts', 'dist'],
+  ignorePatterns: ['.eslintrc.cjs', '*.d.ts', 'dist'],
 };

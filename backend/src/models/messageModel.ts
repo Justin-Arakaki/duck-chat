@@ -25,24 +25,25 @@ Message.init(
     },
     roomId: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      // allowNull: false,
       unique: true,
       field: 'room_id',
     },
     userId: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      // allowNull: false,
       field: 'user_id',
     },
     message: {
-      type: DataTypes.STRING,
-      allowNull: false,
+      type: DataTypes.TEXT,
+      // allowNull: false,
       field: 'message',
     },
   },
   {
     sequelize,
-    modelName: 'messages',
-    tableName: 'Messages',
+    modelName: 'Message',
+    tableName: 'messages',
+    timestamps: false,
   }
 );

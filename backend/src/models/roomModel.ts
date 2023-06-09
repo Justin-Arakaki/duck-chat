@@ -32,7 +32,7 @@ Room.init(
       field: 'room_name',
     },
     createdBy: {
-      type: DataTypes.DATE,
+      type: DataTypes.INTEGER,
       allowNull: false,
       field: 'created_by',
     },
@@ -41,5 +41,6 @@ Room.init(
     sequelize,
     modelName: 'Room',
     tableName: 'rooms',
+    timestamps: false,
   }
 );

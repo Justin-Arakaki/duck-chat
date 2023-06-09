@@ -1,4 +1,4 @@
-import { DataTypes, Model, Sequelize } from 'sequelize';
+import { DataTypes, Model, SaveOptions, Sequelize } from 'sequelize';
 import { Models } from './models';
 import { sequelize } from '../utils/database';
 
@@ -9,9 +9,9 @@ export default class User extends Model {
   declare lastLogin: Date;
   declare readonly createdAt: Date;
 
-  updateLastLogin() {
+  updateLastLogin(options: SaveOptions) {
     this.lastLogin = new Date();
-    return this.save();
+    return this.save(options);
   }
 
   static associate(models: Models) {
@@ -52,5 +52,6 @@ User.init(
     sequelize,
     modelName: 'User',
     tableName: 'users',
+    timestamps: false,
   }
 );

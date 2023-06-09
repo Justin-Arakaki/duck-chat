@@ -9,6 +9,7 @@ export const sequelize = new Sequelize(
   {
     host: getEnv('DB_HOST'),
     dialect: 'mysql',
+    logging: false,
   }
 );
 
