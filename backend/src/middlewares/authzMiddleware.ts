@@ -1,12 +1,12 @@
 import { NextFunction, Response } from 'express';
 import jwt, { JwtPayload, Secret } from 'jsonwebtoken';
-import { AuthRequest } from '../types/express';
+import { AuthzRequest } from '../types/express';
 import { models } from '../models';
 import { UnauthorizedError, NotFoundError } from '../utils/errors';
 import getEnv from '../utils/getEnv';
 
-export default async function authMiddleware(
-  req: AuthRequest,
+export default async function authzMiddleware(
+  req: AuthzRequest,
   res: Response,
   next: NextFunction
 ) {

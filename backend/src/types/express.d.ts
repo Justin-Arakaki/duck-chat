@@ -1,17 +1,20 @@
+import { Request } from 'express';
 import User from '../models/userModel';
 
-export interface UserRequestBody {
-  username?: string;
-  password?: string;
-}
-
-export interface AuthRequest extends Request {
+export interface AuthzRequest extends Request {
   headers: {
     'x-access-token': string;
   };
   user: User;
 }
 
-export interface UserRequest extends AuthRequest {
-  body: UserRequestBody;
+export interface AuthBody {
+  username?: string;
+  password?: string;
 }
+
+export interface AuthRequest extends Request {
+  body: AuthBody;
+}
+
+export interface UserRequest extends AuthzRequest {}

@@ -1,40 +1,33 @@
-import { Request, Response } from 'express';
-import User from '../models/userModel';
-import { NotFoundError } from '../utils/errors';
+import { Response } from 'express';
+import { UserRequest } from '../types/express';
+import { checkRequiredField } from '../utils/errorHandlers';
+import { hashPassword } from '../utils/passwordUtils';
 
-// TODO: Fix all this crap. Be sure to validate!
-
-export const findUserById = async (req: Request, res: Response) => {
-  const { id } = req.params;
-
-  const user = await User.findByPk(id);
-  if (!user) throw new NotFoundError('user');
-
-  res.json(user);
-};
-
-export const updateUser = async (req: Request, res: Response) => {
+export async function updateName(req: UserRequest, res: Response) {
   const user = req.user;
-  const { username, password } = req.body;
+  const { username } = req.body;
+  checkRequiredField(username, 'username');
 
-  // TODO: Add validation for username and password
-  // TODO: Be sure to hash password
-  await user.update({ username, password });
-  res.json({ message: 'User updated successfully!' });
-};
+  await user.update({ name: username });
 
-export const deleteUser = async (req: Request, res: Response) => {
-  const { id } = req.params;
-  try {
-    const user = await User.findByPk(id);
-    if (user) {
-      await user.destroy();
-      res.json({ message: 'User deleted successfully' });
-    } else {
-      res.status(404).json({ error: 'User not found' });
-    }
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-};
+  res.json({ message: 'Username updated successfully!' });
+}
+
+export async function updatePassword(req: UserRequest, res: Response) {
+  const user = req.user;
+  const { password } = req.body;
+  checkRequiredField(password, 'password');
+
+  const hashedPassword = await hashPassword(password);
+  await user.update({ hashedPassword });
+
+  res.json({ message: 'Password updated successfully!' });
+}
+
+export async function deleteUser(req: UserRequest, res: Response) {
+  const user = req.user;
+
+  await user.destroy();
+
+  res.json({ message: 'User deleted successfully' });
+}
