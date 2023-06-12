@@ -9,72 +9,61 @@ import { createSampleUser } from '../../utils/testUtils/createSampleUser';
 describe('RoomMember Model', () => {
   let transaction: Transaction;
 
-  beforeEach(async () => {
-    await sequelize.sync();
-    transaction = await sequelize.transaction();
-  });
+  try {
+    beforeEach(async () => {
+      await sequelize.sync();
+      transaction = await sequelize.transaction();
+    });
 
-  afterEach(async () => {
-    await transaction.rollback();
-  });
+    afterEach(async () => {
+      await transaction.rollback();
+    });
 
-  afterAll(async () => {
-    await sequelize.close();
-  });
+    afterAll(async () => {
+      await sequelize.close();
+    });
 
-  it('should create a new room member', async () => {
-    const { user, room, roomMember } = await createSamples({ transaction });
+    it('should create a new room member', async () => {
+      const { user, room, roomMember } = await createSamples({ transaction });
 
-    expect(roomMember.id).toBeDefined();
-    expect(roomMember.roomId).toBe(room.id);
-    expect(roomMember.userId).toBe(user.id);
-  });
+      expect(roomMember.id).toBeDefined();
+      expect(roomMember.roomId).toBe(room.id);
+      expect(roomMember.userId).toBe(user.id);
+    });
 
-  it('should retrieve a room member', async () => {
-    const { roomMember } = await createSamples({ transaction });
-    let retrievedRoomMember;
+    it('should retrieve a room member', async () => {
+      const { roomMember } = await createSamples({ transaction });
 
-    try {
-      retrievedRoomMember = await RoomMember.findByPk(roomMember.id, {
+      const retrievedRoomMember = await RoomMember.findByPk(roomMember.id, {
         transaction,
       });
-    } catch (err) {
-      console.error(err);
-      throw err;
-    }
 
-    expect(retrievedRoomMember?.id).toBe(roomMember.id);
-    expect(retrievedRoomMember?.roomId).toBe(roomMember.roomId);
-    expect(retrievedRoomMember?.userId).toBe(roomMember.userId);
-  });
+      expect(retrievedRoomMember?.id).toBe(roomMember.id);
+      expect(retrievedRoomMember?.roomId).toBe(roomMember.roomId);
+      expect(retrievedRoomMember?.userId).toBe(roomMember.userId);
+    });
 
-  it('should update a room member', async () => {
-    const { room, roomMember } = await createSamples({ transaction });
+    it('should update a room member', async () => {
+      const { room, roomMember } = await createSamples({ transaction });
 
-    try {
       await roomMember.update({ roomId: room.id }, { transaction });
-    } catch (err) {
-      console.error(err);
-    }
 
-    expect(roomMember.roomId).toBe(room.id);
-  });
+      expect(roomMember.roomId).toBe(room.id);
+    });
 
-  it('should delete a room member', async () => {
-    const { roomMember } = await createSamples({ transaction });
-    let retrievedRoomMember;
+    it('should delete a room member', async () => {
+      const { roomMember } = await createSamples({ transaction });
 
-    try {
       await roomMember.destroy({ transaction });
-      retrievedRoomMember = await RoomMember.findByPk(roomMember.id, {
+      const retrievedRoomMember = await RoomMember.findByPk(roomMember.id, {
         transaction,
       });
-    } catch (err) {
-      console.error(err);
-    }
 
-    expect(retrievedRoomMember).toBeNull();
-  });
+      expect(retrievedRoomMember).toBeNull();
+    });
+  } catch (err) {
+    console.error(err);
+  }
 });
 
 async function createSamples(options?: SaveOptions) {

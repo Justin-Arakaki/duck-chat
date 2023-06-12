@@ -11,80 +11,66 @@ import {
 describe('User Model', () => {
   let transaction: Transaction;
 
-  beforeEach(async () => {
-    await sequelize.sync();
-    transaction = await sequelize.transaction();
-  });
+  try {
+    beforeEach(async () => {
+      await sequelize.sync();
+      transaction = await sequelize.transaction();
+    });
 
-  afterEach(async () => {
-    await transaction.rollback();
-  });
+    afterEach(async () => {
+      await transaction.rollback();
+    });
 
-  afterAll(async () => {
-    await sequelize.close();
-  });
+    afterAll(async () => {
+      await sequelize.close();
+    });
 
-  it('should create a new user', async () => {
-    const attributes = await createSampleUserAttributes();
-    const user = await models.User.create(attributes, { transaction });
+    it('should create a new user', async () => {
+      const attributes = await createSampleUserAttributes();
+      const user = await models.User.create(attributes, { transaction });
 
-    expect(user.id).toBeDefined();
-    expect(user.name).toBe(attributes.name);
-    expect(user.hashedPassword).toBe(attributes.hashedPassword);
-  });
+      expect(user.id).toBeDefined();
+      expect(user.name).toBe(attributes.name);
+      expect(user.hashedPassword).toBe(attributes.hashedPassword);
+    });
 
-  it('should retrieve a user', async () => {
-    const user = await createSampleUser({ transaction });
-    let retrievedUser;
+    it('should retrieve a user', async () => {
+      const user = await createSampleUser({ transaction });
 
-    try {
-      retrievedUser = await User.findByPk(user.id, { transaction });
-    } catch (err) {
-      console.error(err);
-    }
+      const retrievedUser = await User.findByPk(user.id, { transaction });
 
-    expect(retrievedUser?.id).toBe(user.id);
-    expect(retrievedUser?.name).toBe(user.name);
-    expect(retrievedUser?.hashedPassword).toBe(user.hashedPassword);
-  });
+      expect(retrievedUser?.id).toBe(user.id);
+      expect(retrievedUser?.name).toBe(user.name);
+      expect(retrievedUser?.hashedPassword).toBe(user.hashedPassword);
+    });
 
-  it('should update a user', async () => {
-    const user = await createSampleUser({ transaction });
+    it('should update a user', async () => {
+      const user = await createSampleUser({ transaction });
 
-    try {
       await user.update({ name: 'NewName' }, { transaction });
-    } catch (err) {
-      console.error(err);
-    }
 
-    expect(user.name).toBe('NewName');
-  });
+      expect(user.name).toBe('NewName');
+    });
 
-  it('should delete a user', async () => {
-    const user = await createSampleUser({ transaction });
-    let retrievedUser;
+    it('should delete a user', async () => {
+      const user = await createSampleUser({ transaction });
 
-    try {
       await user.destroy({ transaction });
-      retrievedUser = await User.findByPk(user.id, { transaction });
-    } catch (err) {
-      console.error(err);
-    }
+      const retrievedUser = await User.findByPk(user.id, { transaction });
 
-    expect(retrievedUser).toBeNull();
-  });
+      expect(retrievedUser).toBeNull();
+    });
 
-  it('should update last login', async () => {
-    const user = await createSampleUser({ transaction });
+    it('should update last login', async () => {
+      const user = await createSampleUser({ transaction });
 
-    try {
       await user.updateLastLogin({ transaction });
-    } catch (err) {
-      console.error(err);
-    }
 
-    const updatedUser = await models.User.findByPk(user.id, { transaction });
+      const updatedUser = await models.User.findByPk(user.id, { transaction });
 
-    expect(updatedUser?.lastLogin).toBeInstanceOf(Date);
-  });
+      expect(updatedUser?.lastLogin).toBeInstanceOf(Date);
+    });
+  } catch (err) {
+    console.error(err);
+  }
 });

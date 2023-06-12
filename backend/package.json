@@ -13,7 +13,8 @@
     "test:user": "jest src/models/__tests__/userModel.test.ts",
     "test:message": "jest src/models/__tests__/messageModel.test.ts",
     "test:room": "jest src/models/__tests__/roomModel.test.ts",
-    "test:roomMember": "jest src/models/__tests__/roomMemberModel.test.ts --verbose",
+    "test:roomMember": "jest src/models/__tests__/roomMemberModel.test.ts",
+    "test:friendship": "jest src/models/__tests__/friendshipModel.test.ts",
     "faker": "ts-node src/scripts/seedSampleData.ts"
   },
   "dependencies": {

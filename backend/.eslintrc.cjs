@@ -20,6 +20,7 @@ module.exports = {
   ],
   rules: {
     'prettier/prettier': 'warn',
+    'jest/no-disabled-tests': 'off',
     'no-shadow': 'off',
     '@typescript-eslint/no-shadow': ['error'],
     '@typescript-eslint/no-unused-vars': ['warn'],

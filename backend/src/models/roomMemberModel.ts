@@ -28,7 +28,7 @@ RoomMember.init(
   },
   {
     sequelize,
-    modelName: 'RoomMembers',
+    modelName: 'RoomMember',
     tableName: 'room_members',
     timestamps: false,
   }

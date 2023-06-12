@@ -8,67 +8,61 @@ import { createSampleUser } from '../../utils/testUtils/createSampleUser';
 describe('Room Model', () => {
   let transaction: Transaction;
 
-  beforeEach(async () => {
-    await sequelize.sync();
-    transaction = await sequelize.transaction();
-  });
+  try {
+    beforeEach(async () => {
+      await sequelize.sync();
+      transaction = await sequelize.transaction();
+    });
 
-  afterEach(async () => {
-    await transaction.rollback();
-  });
+    afterEach(async () => {
+      await transaction.rollback();
+    });
 
-  afterAll(async () => {
-    await sequelize.close();
-  });
+    afterAll(async () => {
+      await sequelize.close();
+    });
 
-  it('should create a new room', async () => {
-    const { user, room } = await createSamples({ transaction });
+    it('should create a new room', async () => {
+      const { user, room } = await createSamples({ transaction });
 
-    expect(room.id).toBeDefined();
-    expect(room.name).toBeDefined();
-    expect(room.createdBy).toBe(user.id);
-  });
+      expect(room.id).toBeDefined();
+      expect(room.name).toBeDefined();
+      expect(room.createdBy).toBe(user.id);
+    });
 
-  it('should retrieve a room', async () => {
-    const { room } = await createSamples({ transaction });
-    let retrievedRoom;
+    it('should retrieve a room', async () => {
+      const { room } = await createSamples({ transaction });
 
-    try {
-      retrievedRoom = await models.Room.findByPk(room.id, { transaction });
-    } catch (err) {
-      console.error(err);
-    }
+      const retrievedRoom = await models.Room.findByPk(room.id, {
+        transaction,
+      });
 
-    expect(retrievedRoom?.id).toBe(room.id);
-    expect(retrievedRoom?.name).toBe(room.name);
-    expect(retrievedRoom?.createdBy).toBe(room.createdBy);
-  });
+      expect(retrievedRoom?.id).toBe(room.id);
+      expect(retrievedRoom?.name).toBe(room.name);
+      expect(retrievedRoom?.createdBy).toBe(room.createdBy);
+    });
 
-  it('should update a room', async () => {
-    const { room } = await createSamples({ transaction });
+    it('should update a room', async () => {
+      const { room } = await createSamples({ transaction });
 
-    try {
       await room.update({ name: 'Updated Room' }, { transaction });
-    } catch (err) {
-      console.error(err);
-    }
 
-    expect(room.name).toBe('Updated Room');
-  });
+      expect(room.name).toBe('Updated Room');
+    });
 
-  it('should delete a room', async () => {
-    const { room } = await createSamples({ transaction });
-    let retrievedRoom;
+    it('should delete a room', async () => {
+      const { room } = await createSamples({ transaction });
 
-    try {
       await room.destroy({ transaction });
-      retrievedRoom = await models.Room.findByPk(room.id, { transaction });
-    } catch (err) {
-      console.error(err);
-    }
+      const retrievedRoom = await models.Room.findByPk(room.id, {
+        transaction,
+      });
 
-    expect(retrievedRoom).toBeNull();
-  });
+      expect(retrievedRoom).toBeNull();
+    });
+  } catch (err) {
+    console.error(err);
+  }
 });
 
 async function createSamples(options: SaveOptions) {

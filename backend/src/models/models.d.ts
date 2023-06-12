@@ -1,3 +1,4 @@
+import Friendship from './friendshipModel';
 import Message from './messageModel';
 import RoomMember from './roomMemberModel';
 import Room from './roomModel';
@@ -8,4 +9,5 @@ export interface Models {
   Room: typeof Room;
   RoomMember: typeof RoomMember;
   Message: typeof Message;
+  Friendship: typeof Friendship;
 }
