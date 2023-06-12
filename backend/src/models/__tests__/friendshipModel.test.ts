@@ -39,6 +39,7 @@ describe('Friendship Model', () => {
       const createSwappedFriendship = async () => {
         await createSampleFriendship(user2.id, user1.id, { transaction });
       };
+
       await expect(createCloneFriendship()).rejects.toThrow();
       await expect(createSwappedFriendship()).rejects.toThrow();
     });
