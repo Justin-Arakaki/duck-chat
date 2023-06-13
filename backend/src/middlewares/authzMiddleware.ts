@@ -1,17 +1,16 @@
-import { NextFunction, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import jwt, { JwtPayload, Secret } from 'jsonwebtoken';
-import { AuthzRequest } from '../types/express';
 import { models } from '../models';
-import { UnauthorizedError, NotFoundError } from '../utils/errors';
+import { NotFoundError, UnauthorizedError } from '../utils/errors';
 import getEnv from '../utils/getEnv';
 
 export default async function authzMiddleware(
-  req: AuthzRequest,
+  req: Request,
   res: Response,
   next: NextFunction
 ) {
   const token = req.headers['x-access-token'];
-  if (!token) throw new UnauthorizedError('Unauthorized.');
+  if (typeof token !== 'string') throw new UnauthorizedError('Unauthorized.');
 
   const decodedToken = jwt.verify(
     token,

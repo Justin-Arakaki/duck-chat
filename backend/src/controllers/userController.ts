@@ -1,9 +1,8 @@
-import { Response } from 'express';
-import { UserRequest } from '../types/express';
+import { Request, Response } from 'express';
 import { checkRequiredField } from '../utils/errorHandlers';
 import { hashPassword } from '../utils/passwordUtils';
 
-export async function updateName(req: UserRequest, res: Response) {
+export async function updateName(req: Request, res: Response) {
   const user = req.user;
   const { username } = req.body;
   checkRequiredField(username, 'username');
@@ -13,7 +12,7 @@ export async function updateName(req: UserRequest, res: Response) {
   res.json({ message: 'Username updated successfully!' });
 }
 
-export async function updatePassword(req: UserRequest, res: Response) {
+export async function updatePassword(req: Request, res: Response) {
   const user = req.user;
   const { password } = req.body;
   checkRequiredField(password, 'password');
@@ -24,7 +23,7 @@ export async function updatePassword(req: UserRequest, res: Response) {
   res.json({ message: 'Password updated successfully!' });
 }
 
-export async function deleteUser(req: UserRequest, res: Response) {
+export async function deleteUser(req: Request, res: Response) {
   const user = req.user;
 
   await user.destroy();

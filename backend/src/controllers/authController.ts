@@ -1,6 +1,5 @@
-import { Response } from 'express';
+import { Request, Response } from 'express';
 import jwt, { Secret } from 'jsonwebtoken';
-import { AuthRequest } from '../types/express';
 import { models } from '../models';
 import { checkRequiredField } from '../utils/errorHandlers';
 import {
@@ -11,7 +10,7 @@ import {
 import getEnv from '../utils/getEnv';
 import { hashPassword, verifyPassword } from '../utils/passwordUtils';
 
-export async function login(req: AuthRequest, res: Response) {
+export async function login(req: Request, res: Response) {
   const { username, password } = req.body;
   checkRequiredField(username, 'username');
   checkRequiredField(password, 'password');
@@ -27,7 +26,7 @@ export async function login(req: AuthRequest, res: Response) {
   res.json({ token, message: 'Logged in successfully!' });
 }
 
-export async function register(req: AuthRequest, res: Response) {
+export async function register(req: Request, res: Response) {
   const { username, password } = req.body;
   checkRequiredField(username, 'username');
   checkRequiredField(password, 'password');
