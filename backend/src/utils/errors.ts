@@ -25,8 +25,8 @@ export class ForbiddenError extends Error {
 export class NotFoundError extends Error {
   public resource: string;
 
-  constructor(resource: string) {
-    super(`${resource} not found`);
+  constructor(resource: string, message = `${resource} not found`) {
+    super(message);
     this.name = 'NotFoundError';
     this.resource = resource;
   }

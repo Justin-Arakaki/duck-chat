@@ -12,11 +12,11 @@ import { hashPassword, verifyPassword } from '../utils/passwordUtils';
 
 export async function login(req: Request, res: Response) {
   const { username, password } = req.body;
-  checkRequiredField(username, 'username');
-  checkRequiredField(password, 'password');
+  checkRequiredField<string>(username, 'username', 'string');
+  checkRequiredField<string>(password, 'password', 'string');
 
   const user = await models.User.findOne({ where: { username } });
-  if (!user) throw new NotFoundError('user');
+  if (!user) throw new NotFoundError('User');
 
   const isMatch = await verifyPassword(user.hashedPassword, password);
   if (!isMatch) throw new UnauthorizedError('Password is incorrect.');
@@ -28,8 +28,8 @@ export async function login(req: Request, res: Response) {
 
 export async function register(req: Request, res: Response) {
   const { username, password } = req.body;
-  checkRequiredField(username, 'username');
-  checkRequiredField(password, 'password');
+  checkRequiredField<string>(username, 'username', 'string');
+  checkRequiredField<string>(password, 'password', 'string');
 
   const user = await models.User.findOne({ where: { username } });
   if (user) throw new BadRequestError('Username is already in use.');

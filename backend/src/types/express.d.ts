@@ -1,3 +1,5 @@
+import User from '../models/userModel';
+
 export {};
 
 declare global {
@@ -10,6 +12,7 @@ declare global {
       body?: {
         username?: string;
         password?: string;
+        roomId?: string;
         roomName?: string;
       };
     }

@@ -17,7 +17,7 @@ export default async function authzMiddleware(
     getEnv<Secret>('TOKEN_SECRET')
   ) as JwtPayload;
   const user = await models.User.findByPk(decodedToken.userId);
-  if (!user) throw new NotFoundError('user');
+  if (!user) throw new NotFoundError('User');
 
   req.user = user;
   next();
