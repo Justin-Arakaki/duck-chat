@@ -25,11 +25,11 @@ export const errorHandlerMiddleware: ErrReq = (
       res.status(403).json({ error: err.message });
       break;
     case err instanceof NotFoundError:
-      res.status(404).json({ error: `The ${err.resource} was not found` });
+      res.status(404).json({ error: `${err.resource} was not found` });
       break;
     default:
       console.error(err);
-      res.status(500).json({ error: 'Internal Server Error' });
+      res.status(500).json({ error: 'Internal server error.' });
       break;
   }
 };

@@ -1,10 +1,10 @@
-import { Response } from 'express';
-import { UserRequest } from '../types/express';
-import { checkRequiredField } from '../utils/errorHandlers';
+import { Request, Response } from 'express';
+import { checkRequiredField, checkUser } from '../utils/errorHandlers';
 import { hashPassword } from '../utils/passwordUtils';
 
-export async function updateName(req: UserRequest, res: Response) {
+export async function updateName(req: Request, res: Response) {
   const user = req.user;
+  checkUser(user);
   const { username } = req.body;
   checkRequiredField(username, 'username');
 
@@ -13,10 +13,11 @@ export async function updateName(req: UserRequest, res: Response) {
   res.json({ message: 'Username updated successfully!' });
 }
 
-export async function updatePassword(req: UserRequest, res: Response) {
+export async function updatePassword(req: Request, res: Response) {
   const user = req.user;
+  checkUser(user);
   const { password } = req.body;
-  checkRequiredField(password, 'password');
+  checkRequiredField<string>(password, 'password', 'string');
 
   const hashedPassword = await hashPassword(password);
   await user.update({ hashedPassword });
@@ -24,8 +25,9 @@ export async function updatePassword(req: UserRequest, res: Response) {
   res.json({ message: 'Password updated successfully!' });
 }
 
-export async function deleteUser(req: UserRequest, res: Response) {
+export async function deleteUser(req: Request, res: Response) {
   const user = req.user;
+  checkUser(user);
 
   await user.destroy();
 

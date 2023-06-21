@@ -1,20 +1,20 @@
-import { Request } from 'express';
 import User from '../models/userModel';
 
-export interface AuthzRequest extends Request {
-  headers: {
-    'x-access-token': string;
-  };
-  user: User;
-}
+export {};
 
-export interface AuthBody {
-  username?: string;
-  password?: string;
+declare global {
+  namespace Express {
+    export interface Request {
+      headers?: {
+        'x-access-token'?: string;
+      };
+      user?: User;
+      body?: {
+        username?: string;
+        password?: string;
+        roomId?: string;
+        roomName?: string;
+      };
+    }
+  }
 }
-
-export interface AuthRequest extends Request {
-  body: AuthBody;
-}
-
-export interface UserRequest extends AuthzRequest {}

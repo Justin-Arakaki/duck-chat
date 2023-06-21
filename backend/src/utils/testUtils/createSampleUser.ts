@@ -6,9 +6,8 @@ import { models } from '../../models';
 export async function createSampleUserAttributes() {
   const name = `JohnDoe_${uuidv4()}`;
   const hashedPassword = await hashPassword('password123');
-  const attributes = { name, hashedPassword };
 
-  return attributes;
+  return { name, hashedPassword };
 }
 
 export async function createSampleUser(options?: SaveOptions) {
