@@ -7,11 +7,11 @@
   "scripts": {
     "start": "ts-node src/app.ts",
     "dev": "npm-run-all --silent --serial dev:dbstart dev:start",
-    "dev:start": "CHOKIDAR_USEPOLLING=true nodemon",
+    "dev:start": "nodemon",
     "dev:dbstart": "sudo service mysql start",
-    "test": "jest --watch",
-    "test:models": "jest --watch src/models",
-    "test:routes": "jest --watch src/routes"
+    "test": "jest --watch --detectOpenHandles",
+    "test:models": "jest --watch --detectOpenHandles src/models",
+    "test:routes": "jest --watch --detectOpenHandles src/routes"
   },
   "dependencies": {
     "argon2": "^0.30.3",

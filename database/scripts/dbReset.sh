@@ -11,7 +11,7 @@ read -p "This script will delete and recreate database $db_name. Are you sure yo
 choice=$(echo "$choice" | tr '[:upper:]' '[:lower:]')
 
 if [ "$choice" = "y" ]; then
-  echo -e "\n Starting mysql..."
+  echo -e "\nStarting mysql..."
 
   # Sql scripts
   sqlDestroyDb="DROP SCHEMA IF EXISTS $db_name;"
@@ -46,7 +46,7 @@ if [ "$choice" = "y" ]; then
   fi
 
   # Restart db
-  echo -e "\n Restarting mysql..."
+  echo -e "\nRestarting mysql..."
   sudo service mysql restart
 
   echo -e "\nSuccessfully reset database: [$db_name]!\n"

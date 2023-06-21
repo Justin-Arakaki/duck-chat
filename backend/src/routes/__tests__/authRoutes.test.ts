@@ -1,12 +1,13 @@
 import { app } from '../../app';
-import { SaveOptions, Transaction } from 'sequelize';
+import { Transaction } from 'sequelize';
 import request from 'supertest';
 import { sequelize } from '../../utils/database';
-import { createSampleMessage } from '../../utils/testUtils/createSampleMessage';
-import { createSampleRoom } from '../../utils/testUtils/createSampleRoom';
-import { createSampleUser } from '../../utils/testUtils/createSampleUser';
+import {
+  createSampleUser,
+  createSampleUserAttributes,
+} from '../../utils/testUtils/createSampleUser';
 
-describe('POST /login', () => {
+describe('POST /register', () => {
   let transaction: Transaction;
 
   beforeEach(async () => {
@@ -24,14 +25,17 @@ describe('POST /login', () => {
 
   try {
     it('should return a 200 status code and a success message', async () => {
-      const user = await createSampleUser({ transaction });
-      const response = await request(app).post('/login').send({
+      const user = await createSampleUserAttributes();
+
+      const response = await request(app).post('/api/register').send({
         username: user.name,
         password: 'password123',
       });
 
-      expect(response.status).toBe(200);
-      expect(response.body).toEqual({ message: 'Login successful' });
+      expect(response.status).toBe(201);
+      expect(response.body).toEqual({
+        message: 'Account created successfully!',
+      });
     });
   } catch (err) {
     console.error(err);

@@ -36,7 +36,7 @@ export async function register(req: Request, res: Response) {
 
   const hashedPassword = await hashPassword(password);
 
-  await models.User.create({ username, password: hashedPassword });
+  await models.User.create({ name: username, hashedPassword });
 
   res.status(201).json({ message: 'Account created successfully!' });
 }
