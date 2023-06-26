@@ -29,8 +29,8 @@ describe('Friendship Model', () => {
       expect(friendship.userId2).toBe(user2.id);
     });
 
-    // TODO: This causes error to log
     it('should create only unique friendships', async () => {
+      const errorSpy = jest.spyOn(console, 'error').mockImplementation();
       const { user1, user2 } = await createSamples({ transaction });
 
       const createCloneFriendship = async () => {
@@ -42,6 +42,7 @@ describe('Friendship Model', () => {
 
       await expect(createCloneFriendship()).rejects.toThrow();
       await expect(createSwappedFriendship()).rejects.toThrow();
+      errorSpy.mockRestore();
     });
 
     it('should retrieve a friendship', async () => {

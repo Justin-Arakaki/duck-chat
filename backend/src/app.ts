@@ -1,5 +1,6 @@
 import './utils/setupDotenv';
 import express from 'express';
+import Redis from 'redis';
 import { router } from './routes';
 import { errorHandlerMiddleware } from './middlewares/errorHandlerMiddleware';
 import connectToDb from './utils/database';
@@ -8,6 +9,8 @@ connectToDb();
 
 export const app = express();
 const port = process.env.PORT ? parseInt(process.env.PORT, 10) : 8080;
+
+// export const client = Redis.createClient();
 
 app.use(express.json());
 

@@ -2,10 +2,7 @@ import { app } from '../../app';
 import { Transaction } from 'sequelize';
 import request from 'supertest';
 import { sequelize } from '../../utils/database';
-import {
-  createSampleUser,
-  createSampleUserAttributes,
-} from '../../utils/testUtils/createSampleUser';
+import { createSampleUserAttributes } from '../../utils/testUtils/createSampleUser';
 
 describe('POST /register', () => {
   let transaction: Transaction;
