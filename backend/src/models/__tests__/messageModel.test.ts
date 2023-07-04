@@ -2,9 +2,11 @@ import '../../utils/setupDotenv';
 import { models } from '..';
 import { SaveOptions, Transaction } from 'sequelize';
 import { sequelize } from '../../utils/database';
-import { createSampleMessage } from '../../utils/testUtils/createSampleMessage';
-import { createSampleRoom } from '../../utils/testUtils/createSampleRoom';
-import { createSampleUser } from '../../utils/testUtils/createSampleUser';
+import {
+  createSampleUser,
+  createSampleRoom,
+  createSampleMessage,
+} from '../../utils/testUtils/createSample';
 
 describe('Message Model', () => {
   let transaction: Transaction;

@@ -2,25 +2,25 @@ import { app } from '../../app';
 import { Transaction } from 'sequelize';
 import request from 'supertest';
 import { sequelize } from '../../utils/database';
-import { createSampleUserAttributes } from '../../utils/testUtils/createSampleUser';
+import { createSampleUserAttributes } from '../../utils/testUtils/createSample';
 
 describe('POST /register', () => {
   let transaction: Transaction;
 
-  beforeEach(async () => {
-    await sequelize.sync();
-    transaction = await sequelize.transaction();
-  });
-
-  afterEach(async () => {
-    await transaction.rollback();
-  });
-
-  afterAll(async () => {
-    await sequelize.close();
-  });
-
   try {
+    beforeEach(async () => {
+      await sequelize.sync();
+      transaction = await sequelize.transaction();
+    });
+
+    afterEach(async () => {
+      await transaction.rollback();
+    });
+
+    afterAll(async () => {
+      await sequelize.close();
+    });
+
     it('should return a 200 status code and a success message', async () => {
       const user = await createSampleUserAttributes();
 

@@ -4,9 +4,9 @@ import User from '../userModel';
 import { Transaction } from 'sequelize';
 import { sequelize } from '../../utils/database';
 import {
-  createSampleUser,
   createSampleUserAttributes,
-} from '../../utils/testUtils/createSampleUser';
+  createSampleUser,
+} from '../../utils/testUtils/createSample';
 
 describe('User Model', () => {
   let transaction: Transaction;

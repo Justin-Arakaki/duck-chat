@@ -2,8 +2,10 @@ import '../../utils/setupDotenv';
 import { models } from '..';
 import { SaveOptions, Transaction } from 'sequelize';
 import { sequelize } from '../../utils/database';
-import { createSampleRoom } from '../../utils/testUtils/createSampleRoom';
-import { createSampleUser } from '../../utils/testUtils/createSampleUser';
+import {
+  createSampleUser,
+  createSampleRoom,
+} from '../../utils/testUtils/createSample';
 
 describe('Room Model', () => {
   let transaction: Transaction;

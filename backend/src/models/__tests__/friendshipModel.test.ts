@@ -2,8 +2,10 @@ import '../../utils/setupDotenv';
 import Friendship from '../friendshipModel';
 import { SaveOptions, Transaction } from 'sequelize';
 import { sequelize } from '../../utils/database';
-import { createSampleFriendship } from '../../utils/testUtils/createSampleFriendship';
-import { createSampleUser } from '../../utils/testUtils/createSampleUser';
+import {
+  createSampleFriendship,
+  createSampleUser,
+} from '../../utils/testUtils/createSample';
 
 describe('Friendship Model', () => {
   let transaction: Transaction;
