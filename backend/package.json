@@ -9,6 +9,7 @@
     "dev": "npm-run-all --silent --serial dev:dbstart dev:start",
     "dev:start": "nodemon",
     "dev:dbstart": "sudo service mysql start",
+    "seedDb": "ts-node src/utils/seedDbScript.ts",
     "test": "jest --watch --detectOpenHandles",
     "test:models": "jest --watch --detectOpenHandles src/models",
     "test:routes": "jest --watch --detectOpenHandles src/routes"
@@ -21,6 +22,7 @@
     "express-session": "^1.17.3",
     "jsonwebtoken": "^9.0.0",
     "lodash": "^4.17.21",
+    "lorem-ipsum": "^2.0.8",
     "mysql2": "^3.3.3",
     "redis": "^4.6.7",
     "sequelize": "^6.31.1"

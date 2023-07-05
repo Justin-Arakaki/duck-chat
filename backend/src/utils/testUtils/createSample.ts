@@ -1,4 +1,5 @@
 import { hashPassword } from '../passwordUtils';
+import { LoremIpsum } from 'lorem-ipsum';
 import { SaveOptions } from 'sequelize';
 import { v4 as uuidv4 } from 'uuid';
 import { models } from '../../models';
@@ -59,11 +60,21 @@ export async function createSampleMessage(
   options?: SaveOptions
 ) {
   try {
+    const lorem = new LoremIpsum({
+      sentencesPerParagraph: {
+        max: 8,
+        min: 4,
+      },
+      wordsPerSentence: {
+        max: 16,
+        min: 4,
+      },
+    });
     const message = await models.Message.create(
       {
         userId,
         roomId,
-        message: 'Hello, world!',
+        message: lorem.generateParagraphs(1),
       },
       options
     );
